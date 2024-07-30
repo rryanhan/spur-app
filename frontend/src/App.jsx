@@ -1,30 +1,30 @@
-
-import viteLogo from '/vite.svg'
 import './App.css'
-import {useState, useEffect} from "react"
-import axios from "axios"
+
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import Navbar from './components/navbar/Navbar'; // Importing the Navbar component
+import Profile from './components/profile/Profile'; // Importing the Profile component
+import Upcoming from './components/upcoming/Upcoming';
+import Home from './components/home/Home';
 
 function App() {
-  const [data, setData] = useState()
 
-  useEffect (() => {
-    async function grabData() {
-      const response = await axios.get
-      ("http://localhost:3500/events/66a73536e4715515aba3da33")
-      if (response.status === 200) {
-        setData(response.data)
-      }
-
-    }
-    grabData()
-
-  }, [])
 
   return (
-    <>
-      {JSON.stringify(data)}
-
-    </>
+    <Router> {/* The Router component enables routing in our app */}
+      <div className="app">
+        <div className="content">
+          <Routes> {/* The Routes component contains all the Route definitions */}
+            <Route path="/" element={<Home />} /> {/* Route for the Home component at the root path */}
+            <Route path="/profile" element={<Profile />} /> {/* Route for the Profile component at the /profile path */}
+            <Route path="/upcoming" element={<Upcoming />} /> {/* Route for the Upcoming component */}
+          </Routes>
+        </div>
+        <div className="nav-bottom">
+          <Navbar /> {/* Render the Navbar component at the bottom of every page */}
+        </div>
+      </div>
+    </Router>
   )
 }
 

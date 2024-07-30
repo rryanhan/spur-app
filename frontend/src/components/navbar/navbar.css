@@ -1,0 +1,49 @@
+body, html {
+    font-family: 'Jost', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #000;
+  }
+  
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0; /* Ensure the navbar starts from the very left */
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    box-sizing: border-box; /* Include padding in width calculation */
+  }
+  
+  .nav-item {
+    text-align: center;
+    color: #CCCCCC;
+    text-decoration: none;
+    font-size: 12px;
+    font-family: "Jost", sans-serif;
+    font-weight: 400;
+    margin-bottom: 5px; /* Adjust margin as needed */
+    flex: 1; /* Make all items take up equal width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 15px;
+  }
+  
+  .icon {
+    font-size: 24px;
+    margin-bottom: 2px; /* Slight margin to adjust spacing */
+  }
+  
+  .nav-item:hover {
+    color: #23A3EB;
+  }
+  
+  .nav-item.active {
+    color: #23A3EB;
+  }
+  
