@@ -5,7 +5,7 @@ import Explore from "../explore/Explore"
 
 const Home = () => {
   return (
-    <div>hi</div>
+    <div><Explore/></div>
   )
 }
 

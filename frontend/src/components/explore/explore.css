@@ -1,0 +1,120 @@
+/* explore.css */
+.explore-container {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .explore-container h2 {
+    font-family: 'Jost', sans-serif;
+    color: #23A3EB;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 800px; /* Set max-width for the content */
+  }
+  
+  .event-item {
+    display: flex;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Jost', sans-serif;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin: 0 auto; /* Center the item */
+  }
+  
+  .event-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .event-left {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .event-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+  
+  .event-right {
+    flex: 1;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left; /* Align all text to the left */
+  }
+  
+  .event-title {
+    font-family: 'Jost', sans-serif;
+    color: #23A3EB;
+    font-weight: 400;
+    font-size: 1.5rem;
+    margin: 0;
+  }
+  
+  .event-tags {
+    display: flex;
+    gap: 10px;
+    margin: 5px 0; /* Reduce gap between title and tags */
+  }
+  
+  .event-tag {
+    display: flex;
+    align-items: center;
+    padding: 2px 5px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  
+  .event-tag svg {
+    margin-right: 5px;
+  }
+  
+  .event-time {
+    margin: 5px 0; /* Small margin between tags and time */
+    color: #555;
+  }
+  
+  .event-description {
+    margin: 5px 0; /* Reduce margin for compactness */
+    color: #555;
+  }
+  
+  .event-location {
+    margin: 5px 0; /* Small margin between description and location */
+    color: #555;
+  }
+  
+  .event-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .event-details p {
+    margin: 0;
+    color: #555;
+  }
+  
+  .event-details strong {
+    color: #333;
+  }
+  

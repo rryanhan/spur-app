@@ -2,6 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 
+import "@fontsource/jost"; // Defaults to weight 400
+import "@fontsource/jost/300.css"; // Lighter weight for titles
+import "@fontsource/jost/400.css"; // Normal weight
+import "@fontsource/jost/500.css"; // Slightly bold weight
+
 
 import './index.css'
 
