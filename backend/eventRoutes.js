@@ -40,7 +40,10 @@ eventRoutes.route("/events").post(async (request, response, next) => {
         let mongoObject = {
             title: request.body.title,
             description: request.body.description,
-            time: request.body.time
+            endTime: request.body.endTime,
+            startTime: request.body.startTime,
+            type: request.body.type,
+            location: request.body.location
         };
         let data = await db.collection("events").insertOne(mongoObject);
         response.json(data);
@@ -57,7 +60,10 @@ eventRoutes.route("/events/:id").put(async (request, response, next) => {
             $set: {
                 title: request.body.title,
                 description: request.body.description,
-                time: request.body.time
+                endTime: request.body.endTime,
+                startTime: request.body.startTime,
+                type: request.body.type,
+                location: request.body.location
             }
         };
         let data = await db.collection("events").updateOne({ _id: new ObjectId(request.params.id) }, mongoObject); // Corrected this line
