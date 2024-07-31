@@ -30,7 +30,6 @@ html, body {
     flex-direction: column;
     gap: 10px;
 
-
   }
   
   .event-item {
@@ -44,9 +43,6 @@ html, body {
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
     width: 100%;
-    margin: 0 auto; /* Center the item */
-    max-width: 100%; /* Ensure it spans the full width of its parent */
-    box-sizing: border-box; /* Include padding and border in width calculation */
   }
   
   .event-item:hover {
@@ -70,6 +66,7 @@ html, body {
   .event-right {
     padding-left: 8px;
     margin-top: -5px;
+    margin-right: -7.5px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -104,10 +101,17 @@ html, body {
   }
   
   .event-time,
-  .event-description,
+
   .event-location {
     margin: 0px 0; /* Small margin for compactness */
     color: #555;
     font-size: 0.55rem;
+  }
+
+  .event-description{
+    margin: 0px 0; /* Small margin for compactness */
+    color: #555;
+    font-size: 0.55rem;
+    margin-top: 3px;
   }
   
