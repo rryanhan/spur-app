@@ -1,9 +1,21 @@
-/* explore.css */
-.explore-container {
-    padding-top: 20px;
+/* Reset margin and padding for body and html */
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Apply box-sizing to all elements */
+  *, *::before, *::after {
+    box-sizing: inherit;
+  }
+  
+  /* explore.css */
+  .explore-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
   }
   
   .explore-container h2 {
@@ -16,9 +28,9 @@
   .events-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    width: 100%;
-    max-width: 800px; /* Set max-width for the content */
+    gap: 10px;
+
+
   }
   
   .event-item {
@@ -31,7 +43,10 @@
     font-family: 'Jost', sans-serif;
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
+    width: 100%;
     margin: 0 auto; /* Center the item */
+    max-width: 100%; /* Ensure it spans the full width of its parent */
+    box-sizing: border-box; /* Include padding and border in width calculation */
   }
   
   .event-item:hover {
@@ -41,20 +56,20 @@
   
   .event-left {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: row;
+    gap: 5px;
+    margin-left: -7.5px;
   }
   
   .event-pic {
-    width: 120px;
-    height: 120px;
+    width: 10vh;
+    height: 10vh;
     border-radius: 10px;
-    object-fit: cover;
   }
   
   .event-right {
-    flex: 1;
-    padding-left: 20px;
+    padding-left: 8px;
+    margin-top: -5px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -66,14 +81,13 @@
     font-family: 'Jost', sans-serif;
     color: #23A3EB;
     font-weight: 400;
-    font-size: 1.5rem;
+    font-size: 1.0rem;
     margin: 0;
   }
   
   .event-tags {
     display: flex;
     gap: 10px;
-    margin: 5px 0; /* Reduce gap between title and tags */
   }
   
   .event-tag {
@@ -81,40 +95,19 @@
     align-items: center;
     padding: 2px 5px;
     border-radius: 10px;
-    font-size: 0.8rem;
-    font-weight: 500;
+    font-size: 0.55rem;
+    font-weight: 400;
   }
   
   .event-tag svg {
-    margin-right: 5px;
+    margin-right: 2.5px;
   }
   
-  .event-time {
-    margin: 5px 0; /* Small margin between tags and time */
-    color: #555;
-  }
-  
-  .event-description {
-    margin: 5px 0; /* Reduce margin for compactness */
-    color: #555;
-  }
-  
+  .event-time,
+  .event-description,
   .event-location {
-    margin: 5px 0; /* Small margin between description and location */
+    margin: 0px 0; /* Small margin for compactness */
     color: #555;
-  }
-  
-  .event-details {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .event-details p {
-    margin: 0;
-    color: #555;
-  }
-  
-  .event-details strong {
-    color: #333;
+    font-size: 0.55rem;
   }
   
