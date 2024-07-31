@@ -9,6 +9,13 @@ html, body {
   *, *::before, *::after {
     box-sizing: inherit;
   }
+
+  /* Remove default link styling */
+.event-item-link {
+    text-decoration: none;
+    color: inherit;
+  }
+  
   
   /* explore.css */
   .explore-container {
@@ -84,7 +91,7 @@ html, body {
   
   .event-tags {
     display: flex;
-    gap: 10px;
+    gap: 20px;
   }
   
   .event-tag {
