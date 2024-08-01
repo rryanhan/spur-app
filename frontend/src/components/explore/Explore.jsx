@@ -42,7 +42,7 @@ const Explore = () => {
 
   return (
     <div className="explore-container">
-      <h2>Explore, For You!</h2>
+      <h2 className = "explore-for-you">Explore, For You!</h2>
       <div className="events-list">
         {events.map(event => {
           const tagDetails = getTagDetails(event.type);

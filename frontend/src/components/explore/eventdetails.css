@@ -1,10 +1,10 @@
+
+
 .event-details-container {
     max-width: 600px;
     margin: 20px auto;
     padding: 20px;
-    border-radius: 10px;
-    background-color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
   }
   
   .event-details-title {
@@ -12,6 +12,16 @@
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 10px;
+    text-align: left;
+  }
+
+  .event-back-button {
+    background: none;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    padding: 0; /* Remove default padding */
+    margin-right: 300px;
   }
   
   .event-details-date-location {
@@ -19,6 +29,7 @@
     font-size: 0.875rem;
     color: #555;
     margin-bottom: 10px;
+    text-align: left;
   }
   
   .event-details-organizer-row {
@@ -38,9 +49,9 @@
     background-color: #23A3EB;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 100px;
     padding: 10px 20px;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-family: 'Jost', sans-serif;
     cursor: pointer;
   }
@@ -54,6 +65,7 @@
     font-family: 'Jost', sans-serif;
     margin-bottom: 10px;
     color: #555;
+    text-align: left;
   }
   
   .event-details-tags {
@@ -66,10 +78,10 @@
   .event-details-tag {
     display: flex;
     align-items: center;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 500;
+    padding: 2px 5px;
+    border-radius: 10px;
+    font-size: 0.55rem;
+    font-weight: 400;
   }
   
   .event-details-tag svg {

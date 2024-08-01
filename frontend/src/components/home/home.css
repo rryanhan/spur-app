@@ -1,0 +1,43 @@
+.searchbar-content {
+    position: fixed;
+    bottom: 0;
+    left: 0; 
+  }
+.explore-overflow{
+    padding-top: 300px
+}
+
+.searchbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+    border-bottom: 1px solid #dcdcdc;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    
+  }
+  
+  .search-bar {
+    flex-grow: 1;
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+  }
+  
+  .create-event-button {
+    background: none;
+    border: none;
+
+  }
+
+  .create-event-button img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }

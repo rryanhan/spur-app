@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getEvent } from '../../api';
-import { FaGraduationCap, FaRunning, FaSlideshare, FaUsers, FaRegBookmark } from 'react-icons/fa';
+import { FaGraduationCap, FaRunning, FaSlideshare, FaUsers, FaRegBookmark, FaArrowLeft } from 'react-icons/fa';
 import muayThaiPic from '../../assets/muaythai-spur.png';
 import './eventdetails.css';
 
 const EventDetails = () => {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchEvent() {
@@ -36,9 +38,10 @@ const EventDetails = () => {
 
   return (
     <div className="event-details-container">
+    <button className='event-back-button' onClick={() => navigate(-1)}><FaArrowLeft/></button>
       <h1 className="event-details-title">{event.title}</h1>
       <p className="event-details-date-location">
-        {new Date(event.startTime).toLocaleDateString()} | {new Date(event.startTime).toLocaleTimeString()} - {new Date(event.endTime).toLocaleTimeString()} | {event.location}
+        {new Date(event.startTime).toLocaleDateString()}, {new Date(event.startTime).toLocaleTimeString()} - {new Date(event.endTime).toLocaleTimeString()} | {event.location}
       </p>
       <div className="event-details-organizer-row">
         <span className="event-details-organizer-name">Ryan Han</span>
