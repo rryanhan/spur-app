@@ -44,8 +44,8 @@ eventRoutes.route("/events").post(async (request, response, next) => {
             startTime: request.body.startTime,
             type: request.body.type,
             location: request.body.location,
-            attendees: request.body.attendees,
-            frequency: 0
+            attendees: 0,
+            frequency: request.body.frequency,
         };
         let data = await db.collection("events").insertOne(mongoObject);
         response.json(data);

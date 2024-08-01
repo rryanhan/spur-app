@@ -1,6 +1,7 @@
-// CreateEventModal.jsx
+// EventCreate.jsx
 import React, { useState } from 'react';
-import { createEvent } from '../../api'; // Import the API function
+import { createEvent } from '../../api'; 
+import { FaGraduationCap, FaRunning, FaSlideshare } from 'react-icons/fa';
 import './eventcreate.css';
 
 const EventCreate = ({ closeModal }) => {
@@ -12,7 +13,7 @@ const EventCreate = ({ closeModal }) => {
     endTime: '',
     type: '',
     location: '',
-    frequency: '' // Initialize with an empty string
+    frequency: '' 
   });
 
   // Handle form input changes
@@ -21,13 +22,22 @@ const EventCreate = ({ closeModal }) => {
     setForm({ ...form, [name]: value });
   };
 
+  // Handle type selection
+  const handleTypeChange = (selectedType) => {
+    setForm({ ...form, type: selectedType });
+  };
+
+  // Handle frequency selection
+  const handleFrequencyChange = (selectedFrequency) => {
+    setForm({ ...form, frequency: selectedFrequency });
+  };
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const eventData = { ...form, attendees: 0 }; // Set attendees to 0 by default
-    console.log("Form data before submission:", eventData); // Log form data
+    console.log("Form data before submission:", form); 
     try {
-      await createEvent(eventData);
+      await createEvent({ ...form, attendees: 0 }); // Ensure attendees are set to 0
       alert('Event created successfully!');
       closeModal(); // Close the modal on success
     } catch (error) {
@@ -39,7 +49,7 @@ const EventCreate = ({ closeModal }) => {
     <div className="modal-overlay" onClick={closeModal}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="close-button" onClick={closeModal}>X</button>
-        <h2>Create Event</h2>
+        <h2>Host an Event!</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Event Title</label>
@@ -63,35 +73,50 @@ const EventCreate = ({ closeModal }) => {
             />
           </div>
           <div className="form-group">
-            <label>Event Start Date & Time</label>
-            <input
-              type="datetime-local"
-              name="startTime"
-              value={form.startTime}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label>Event End Date & Time</label>
-            <input
-              type="datetime-local"
-              name="endTime"
-              value={form.endTime}
-              onChange={handleChange}
-              required
-            />
+            <label>Event Time</label>
+            <div className="datetime-group">
+              <input
+                type="datetime-local"
+                name="startTime"
+                value={form.startTime}
+                onChange={handleChange}
+                required
+              />
+              <span>–</span>
+              <input
+                type="datetime-local"
+                name="endTime"
+                value={form.endTime}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
           <div className="form-group">
             <label>Event Type</label>
-            <input
-              type="text"
-              name="type"
-              placeholder="Enter event type"
-              value={form.type}
-              onChange={handleChange}
-              required
-            />
+            <div className="button-group">
+              <button
+                type="button"
+                className={`option-button ${form.type === 'Social' ? 'active' : ''}`}
+                onClick={() => handleTypeChange('Social')}
+              >
+                <FaSlideshare /> Social
+              </button>
+              <button
+                type="button"
+                className={`option-button ${form.type === 'Recreation' ? 'active' : ''}`}
+                onClick={() => handleTypeChange('Recreation')}
+              >
+                <FaRunning /> Recreation
+              </button>
+              <button
+                type="button"
+                className={`option-button ${form.type === 'Education' ? 'active' : ''}`}
+                onClick={() => handleTypeChange('Education')}
+              >
+                <FaGraduationCap /> Education
+              </button>
+            </div>
           </div>
           <div className="form-group">
             <label>Event Location</label>
@@ -106,14 +131,22 @@ const EventCreate = ({ closeModal }) => {
           </div>
           <div className="form-group">
             <label>Event Frequency</label>
-            <input
-              type="text"
-              name="frequency"
-              placeholder="Event frequency (e.g., One-time, Weekly)"
-              value={form.frequency}
-              onChange={handleChange}
-              required
-            />
+            <div className="button-group">
+              <button
+                type="button"
+                className={`option-button ${form.frequency === 'One-Time' ? 'active' : ''}`}
+                onClick={() => handleFrequencyChange('One-Time')}
+              >
+                One-Time
+              </button>
+              <button
+                type="button"
+                className={`option-button ${form.frequency === 'Recurring' ? 'active' : ''}`}
+                onClick={() => handleFrequencyChange('Recurring')}
+              >
+                Recurring
+              </button>
+            </div>
           </div>
           <button type="submit" className="submit-button">Create Event</button>
         </form>

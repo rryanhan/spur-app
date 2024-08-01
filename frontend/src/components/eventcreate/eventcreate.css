@@ -1,10 +1,11 @@
-/* CreateEventModal.css */
+/* eventcreate.css */
+
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
@@ -18,34 +19,86 @@
     border-radius: 10px;
     max-width: 500px;
     width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: relative;
   }
   
   .close-button {
-    position: absolute;
-    top: 10px;
-    left: 10px;
     background: none;
     border: none;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 10px;
+    right: 10px;
     cursor: pointer;
+  }
+  
+  h2 {
+    font-family: 'Jost', sans-serif;
+    font-size: 1.5rem;
+    color: #23A3EB;
+    margin-bottom: 20px;
+    text-align: left;
   }
   
   .form-group {
     margin-bottom: 15px;
   }
   
-  .form-group label {
-    display: block;
+  label {
+    font-family: 'Jost', sans-serif;
+    font-size: 1rem;
+    color: #555;
     margin-bottom: 5px;
+    display: block;
   }
   
-  .form-group input,
-  .form-group textarea {
+  input,
+  textarea {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    font-family: 'Jost', sans-serif;
+    font-size: 1rem;
+    border: 1px solid #dcdcdc;
     border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  textarea {
+    height: 100px;
+    resize: none;
+  }
+  
+  .datetime-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .option-button {
+    padding: 10px 20px;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    background-color: #fff;
+    cursor: pointer;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.8rem;
+    transition: background-color 0.3s, border-color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .option-button.active,
+  .option-button:hover {
+    background-color: #23A3EB;
+    border-color: #23A3EB;
+    color: #fff;
   }
   
   .submit-button {
@@ -54,6 +107,13 @@
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
+    font-size: 1rem;
     cursor: pointer;
+    font-family: 'Jost', sans-serif;
+    transition: background-color 0.3s;
+  }
+  
+  .submit-button:hover {
+    background-color: #1d91d0;
   }
   
