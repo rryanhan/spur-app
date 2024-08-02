@@ -70,9 +70,9 @@ export async function updateUser(id, user){
     return response
 }
 
-export async function loginUser(credentials) {
+export async function loginUser(user) {
     try {
-      const response = await axios.post(`${URL}/login`, credentials);
+      const response = await axios.post(`${URL}/login`, user);
       return response;
     } catch (error) {
       console.error('Error logging in:', error);

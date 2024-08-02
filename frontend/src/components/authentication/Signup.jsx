@@ -26,14 +26,18 @@ const Signup = ({ setActive }) => {
     e.preventDefault();
     try {
       const response = await createUser(form);
-      if (response.status === 200) {
+      if (response.status === 201) {
         alert('User created successfully!');
       } else {
         setError(response.data.message || 'Error creating user');
       }
     } catch (err) {
       console.error('Error creating user:', err);
-      setError('An error occurred while creating the account.');
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError('An error occurred while creating the account.');
+      }
     }
   };
 
@@ -57,6 +61,7 @@ const Signup = ({ setActive }) => {
               value={form.name}
               name="name"
               required
+              maxLength={20}
             />
             <input 
               onChange={handleChange}
@@ -66,6 +71,7 @@ const Signup = ({ setActive }) => {
               value={form.email} 
               name="email"
               required
+              maxLength={30}
             />
             <div className="password-container">
               <input
@@ -76,6 +82,7 @@ const Signup = ({ setActive }) => {
                 value={form.password}
                 name="password"
                 required
+                maxLength={20}
               />
               <button
                 type="button"
