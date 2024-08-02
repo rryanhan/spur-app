@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { createUser } from '../../api';
 import spurlogo from "../../assets/Spur_Logo.png";
 import './authentication.css';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = ({ setActive }) => {
   const [form, setForm] = useState({
@@ -12,6 +13,7 @@ const Signup = ({ setActive }) => {
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,6 +30,10 @@ const Signup = ({ setActive }) => {
       const response = await createUser(form);
       if (response.status === 201) {
         alert('User created successfully!');
+        sessionStorage.setItem("user", response.data.token); // Store the token
+        const storedToken = sessionStorage.getItem("user")
+        console.log(storedToken);
+        navigate("/"); // Redirect to home page
       } else {
         setError(response.data.message || 'Error creating user');
       }
