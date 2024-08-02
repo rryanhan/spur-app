@@ -26,7 +26,7 @@ const Signup = ({ setActive }) => {
     e.preventDefault();
     try {
       const response = await createUser(form);
-      if (response.status === 201) {
+      if (response.status === 200) {
         alert('User created successfully!');
       } else {
         setError(response.data.message || 'Error creating user');

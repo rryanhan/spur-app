@@ -22,6 +22,7 @@ const Login = ({ setActive }) => {
       const response = await loginUser(form);
       if (response.status === 200) {
         alert('Login successful!');
+        localStorage.setItem('userId', response.data.userId); // Store user ID in local storage
         // Redirect or update UI as needed
       } else {
         setError(response.data.message || 'Error logging in');
