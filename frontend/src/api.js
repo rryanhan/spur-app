@@ -45,3 +45,37 @@ export async function deleteEvent(id){
     return response
 
 }
+
+
+export async function getUser(id){
+    const response = await axios.get(`${URL}/users/${id}`)
+
+    if (response.status === 200){
+        return response.data
+    } else {
+        return
+    }
+}
+
+export async function createUser(user){
+    const response = await axios.post(`${URL}/users`, user)
+
+    return response
+
+}
+
+export async function updateUser(id, user){
+    const response = await axios.put(`${URL}/users`, user)
+
+    return response
+}
+
+export async function loginUser(credentials) {
+    try {
+      const response = await axios.post(`${URL}/login`, credentials);
+      return response;
+    } catch (error) {
+      console.error('Error logging in:', error);
+      return error.response; // Return the response object for further handling
+    }
+  }

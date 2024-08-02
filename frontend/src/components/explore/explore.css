@@ -24,6 +24,7 @@ html, body {
     align-items: center;
     border: 1px solid #dcdcdc;
     border-radius: 10px;
+    padding-bottom: 80px;
 
   }
   
@@ -53,7 +54,7 @@ html, body {
     font-family: 'Jost', sans-serif;
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
-    width: 100%;
+    
   }
   
   .event-item:hover {
