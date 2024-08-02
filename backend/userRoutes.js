@@ -114,25 +114,25 @@ userRoutes.route("/users/:id").delete(async (req, res, next) => {
 });
 
 // Login
-userRoutes.route('/login').post(async (req, res) => {
+userRoutes.route('/users/login').post(async (request, response) => {
+    let db = database.getDb();
+
     try {
-        const db = database.getDb();
-        const user = await db.collection('users').findOne({ email: req.body.email });
+        const user = await db.collection("users").findOne({ email: request.body.email });
 
         if (!user) {
-            return res.status(400).json({ message: 'Email not found' });
+            return response.status(400).json({ success: false, message: "Email not found" });
         }
 
-        const isMatch = await bcrypt.compare(req.body.password, user.password);
-        if (!isMatch) {
-            return res.status(400).json({ message: 'Invalid credentials' });
+        const confirmation = await bcrypt.compare(request.body.password, user.password);
+        if (confirmation) {
+            return response.status(200).json({ success: true, user });
+        } else {
+            return response.status(400).json({ success: false, message: "Incorrect password" });
         }
-
-        // Successfully logged in
-        res.status(200).json({ message: 'Login successful', user });
     } catch (error) {
         console.error('Error logging in:', error);
-        res.status(500).json({ message: 'Server error' });
+        return response.status(500).json({ success: false, message: 'Server error' });
     }
 });
 

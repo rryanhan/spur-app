@@ -19,19 +19,19 @@ const Login = ({ setActive }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await loginUser(form);
-      if (response.status === 200) {
-        alert('Login successful!');
-        localStorage.setItem('userId', response.data.userId); // Store user ID in local storage
-        // Redirect or update UI as needed
-      } else {
-        setError(response.data.message || 'Error logging in');
-      }
+        const response = await loginUser(form);
+        if (response.success) {
+            alert('Login successful!');
+            console.log(response.user); // Use user data as needed
+            // Perform actions after successful login, e.g., redirect
+        } else {
+            setError(response.message || 'Error logging in');
+        }
     } catch (err) {
-      console.error('Error logging in:', err);
-      setError('An error occurred while logging in.');
+        console.error('Error logging in:', err);
+        setError('An error occurred while logging in.');
     }
-  };
+};
 
   return (
     <div className="auth-container">

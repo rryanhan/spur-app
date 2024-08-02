@@ -32,7 +32,7 @@ export async function createEvent(event){
 }
 
 export async function updateEvent(id, event){
-    const response = await axios.put(`${URL}/events`, event)
+    const response = await axios.put(`${URL}/events/${id}`, event)
 
     return response
     
@@ -65,17 +65,12 @@ export async function createUser(user){
 }
 
 export async function updateUser(id, user){
-    const response = await axios.put(`${URL}/users`, user)
+    const response = await axios.put(`${URL}/users${id}`, user)
 
     return response
 }
 
 export async function loginUser(user) {
-    try {
-      const response = await axios.post(`${URL}/login`, user);
-      return response;
-    } catch (error) {
-      console.error('Error logging in:', error);
-      return error.response; // Return the response object for further handling
-    }
-  }
+    const response = await axios.post(`${URL}/users/login`, user);
+    return response.data;
+}
