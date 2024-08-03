@@ -63,6 +63,7 @@ userRoutes.route("/users").post(async (req, res, next) => {
           events: [],
           bio: [],
           pictures: [],
+          profilePicture: [],
         };
         let data = await db.collection("users").insertOne(mongoObject);
   
@@ -95,6 +96,7 @@ userRoutes.route("/users/:id").put(async (req, res, next) => {
                 events: req.body.events,
                 bio: req.body.bio,
                 pictures: req.body.pictures,
+                profilePicture: req.body.profilePicture,
             }
         };
         let data = await db.collection("users").updateOne({ _id: new ObjectId(id) }, mongoObject);
