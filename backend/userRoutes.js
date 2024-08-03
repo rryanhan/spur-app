@@ -123,25 +123,26 @@ userRoutes.route("/users/:id").delete(async (req, res, next) => {
 // Login
 userRoutes.route('/users/login').post(async (request, response) => {
     let db = database.getDb();
-
+  
     try {
-        const user = await db.collection("users").findOne({ email: request.body.email });
-
-        if (!user) {
-            return response.status(400).json({ success: false, message: "Email not found" });
-        }
-
-        const confirmation = await bcrypt.compare(request.body.password, user.password);
-        if (confirmation) {
-            const token = jwt.sign(user, process.env.SECRETKEY, {expiresIn: "1h"})
-            return response.status(200).json({ success: true, token });
-        } else {
-            return response.status(400).json({ success: false, message: "Incorrect password" });
-        }
+      const user = await db.collection("users").findOne({ email: request.body.email });
+  
+      if (!user) {
+        return response.status(400).json({ success: false, message: "Email not found" });
+      }
+  
+      const confirmation = await bcrypt.compare(request.body.password, user.password);
+      if (confirmation) {
+        // Include user ID in the token payload
+        const token = jwt.sign({ id: user._id }, process.env.SECRETKEY, { expiresIn: "1h" });
+        return response.status(200).json({ success: true, token });
+      } else {
+        return response.status(400).json({ success: false, message: "Incorrect password" });
+      }
     } catch (error) {
-        console.error('Error logging in:', error);
-        return response.status(500).json({ success: false, message: 'Server error' });
+      console.error('Error logging in:', error);
+      return response.status(500).json({ success: false, message: 'Server error' });
     }
-});
+  });
 
 module.exports = userRoutes;

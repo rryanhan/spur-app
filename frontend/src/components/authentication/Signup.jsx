@@ -31,9 +31,9 @@ const Signup = ({ setActive }) => {
       if (response.status === 201) {
         alert('User created successfully!');
         sessionStorage.setItem("user", response.data.token); // Store the token
-        const storedToken = sessionStorage.getItem("user")
+        const storedToken = sessionStorage.getItem("user");
         console.log(storedToken);
-        navigate("/"); // Redirect to home page
+        navigate("/profile"); // Redirect to profile page
       } else {
         setError(response.data.message || 'Error creating user');
       }
@@ -83,7 +83,7 @@ const Signup = ({ setActive }) => {
               <input
                 onChange={handleChange}
                 className="input-field"
-                type={passwordVisible ? "text" : "password"}
+                type={passwordVisible ? "text" : "password"} // Use the passwordVisible state
                 placeholder="Password"
                 value={form.password}
                 name="password"
