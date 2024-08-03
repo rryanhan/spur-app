@@ -46,6 +46,7 @@ eventRoutes.route("/events").post(async (request, response, next) => {
             location: request.body.location,
             attendees: 0,
             frequency: request.body.frequency,
+            createdBy: request.body.createdBy, // Include the creator's ID
         };
         let data = await db.collection("events").insertOne(mongoObject);
         response.json(data);
@@ -53,6 +54,7 @@ eventRoutes.route("/events").post(async (request, response, next) => {
         next(error);
     }
 });
+
 
 // Update one
 eventRoutes.route("/events/:id").put(async (request, response, next) => {

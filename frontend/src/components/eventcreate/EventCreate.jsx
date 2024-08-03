@@ -1,4 +1,3 @@
-// EventCreate.jsx
 import React, { useState } from 'react';
 import { createEvent } from '../../api'; 
 import { FaGraduationCap, FaRunning, FaSlideshare } from 'react-icons/fa';
@@ -35,9 +34,13 @@ const EventCreate = ({ closeModal }) => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form data before submission:", form); 
     try {
-      await createEvent({ ...form, attendees: 0 }); // Ensure attendees are set to 0
+      // Extract the user ID from the token in sessionStorage
+      const token = sessionStorage.getItem('user');
+      const userId = JSON.parse(atob(token.split('.')[1])).id;
+
+      // Include the user ID in the event details
+      await createEvent({ ...form, attendees: 0, createdBy: userId }); // Ensure attendees are set to 0
       alert('Event created successfully!');
       closeModal(); // Close the modal on success
     } catch (error) {

@@ -106,6 +106,7 @@ html, body {
     border-radius: 10px;
     font-size: 0.55rem;
     font-weight: 400;
+    white-space: nowrap;
   }
   
   .event-tag svg {
