@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { updateUser, uploadProfilePicture } from '../../api'; // API call for updating user and uploading profile picture
-import './editprofile.css'; 
+import './editprofile.css'; // Import your CSS file
 
 function EditProfile({ user, setIsEditing }) {
   const [form, setForm] = useState({
-    name: user.name,
-    bio: user.bio,
-    profilePicture: user.profilePicture,
+    name: user.name || '',
+    bio: user.bio || '',
+    profilePicture: user.profilePicture || '',
+    instagramHandle: user.instagramHandle || '', // Include Instagram handle
   });
 
   const handleChange = (e) => {
@@ -18,9 +19,7 @@ function EditProfile({ user, setIsEditing }) {
     const file = e.target.files[0];
     if (file) {
       try {
-        // Upload the file and get the key
         const response = await uploadProfilePicture(file);
-        console.log('Image response:', response); // Log the image response
         setForm({ ...form, profilePicture: response.key });
       } catch (error) {
         console.error('Error uploading profile picture:', error);
@@ -36,10 +35,10 @@ function EditProfile({ user, setIsEditing }) {
       const userId = JSON.parse(atob(token.split('.')[1])).id;
       const updatedFields = {};
 
-      // Include only the fields that have changed
       if (form.name !== user.name) updatedFields.name = form.name;
       if (form.bio !== user.bio) updatedFields.bio = form.bio;
       if (form.profilePicture !== user.profilePicture) updatedFields.profilePicture = form.profilePicture;
+      if (form.instagramHandle !== user.instagramHandle) updatedFields.instagramHandle = form.instagramHandle;
 
       if (Object.keys(updatedFields).length > 0) {
         await updateUser(userId, updatedFields);
@@ -58,11 +57,15 @@ function EditProfile({ user, setIsEditing }) {
     <form onSubmit={handleSubmit}>
       <div>
         <label>Name:</label>
-        <input type="text" name="name" value={form.name || ''} onChange={handleChange} />
+        <input type="text" name="name" value={form.name} onChange={handleChange} />
       </div>
       <div>
         <label>Bio:</label>
-        <textarea name="bio" value={form.bio || ''} onChange={handleChange} />
+        <textarea name="bio" value={form.bio} onChange={handleChange} />
+      </div>
+      <div>
+        <label>Instagram Handle:</label>
+        <input type="text" name="instagramHandle" value={form.instagramHandle} onChange={handleChange} />
       </div>
       <div>
         <label>Profile Picture:</label>
@@ -71,12 +74,14 @@ function EditProfile({ user, setIsEditing }) {
           <img
             src={`https://spur-profile-pictures.s3.amazonaws.com/${form.profilePicture}`}
             alt="Profile Preview"
-            className="profile-picture-preview" // Apply the CSS class
+            className="profile-picture-preview"
           />
         )}
       </div>
-      <button type="submit" className="form-button save-button">Save Changes</button>
-      <button type="button" className="form-button cancel-button" onClick={() => setIsEditing(false)}>Cancel</button>
+      <div>
+        <button type="submit" className="form-button save-button">Save Changes</button>
+        <button type="button" className="form-button cancel-button" onClick={() => setIsEditing(false)}>Cancel</button>
+      </div>
     </form>
   );
 }

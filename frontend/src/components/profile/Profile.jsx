@@ -1,8 +1,10 @@
+// Profile.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../../api';
 import EditProfile from './EditProfile';
 import spurlogo from "../../assets/Spur_Logo.png"; // Fallback image if no profile picture is available
+import { FaInstagram } from "react-icons/fa"; // Import Instagram icon
 import './profile.css';
 
 function Profile() {
@@ -53,14 +55,28 @@ function Profile() {
               className="profile-picture"
             />
           </div>
-          <h1 className="username">{user.name}</h1>
+          <div className="username-instagram">
+            <h1 className="username">{user.name}</h1>
+            {user.instagramHandle && (
+              <a
+                href={`https://www.instagram.com/${user.instagramHandle}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="instagram-icon"
+              >
+                <FaInstagram />
+              </a>
+            )}
+          </div>
           <p className="bio">{user.bio}</p>
-          <button className="edit-profile-button" onClick={() => setIsEditing(true)}>
-            Edit Profile
-          </button>
-          <button className="logout-button" onClick={handleLogout}>
-            Logout
-          </button>
+          <div className="button-row">
+            <button className="profile-button" onClick={() => setIsEditing(true)}>
+              Edit Profile
+            </button>
+            <button className="profile-button" onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
         </>
       )}
     </div>

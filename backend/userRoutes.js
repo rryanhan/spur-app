@@ -80,43 +80,29 @@ userRoutes.route("/users").post(async (req, res, next) => {
 
 // Update one user
 userRoutes.route("/users/:id").put(async (req, res, next) => {
-    try {
-        const id = req.params.id;
-        if (!ObjectId.isValid(id)) {
-            return res.status(400).json({ message: 'Invalid ID format' });
-        }
+  try {
+      const id = req.params.id;
+      if (!ObjectId.isValid(id)) {
+          return res.status(400).json({ message: 'Invalid ID format' });
+      }
 
-        let db = database.getDb();
+      const db = database.getDb();
+      const updateFields = {};
 
-        // Retrieve existing user data
-        const existingUser = await db.collection("users").findOne({ _id: new ObjectId(id) });
+      if (req.body.name !== undefined) updateFields.name = req.body.name;
+      if (req.body.bio !== undefined) updateFields.bio = req.body.bio;
+      if (req.body.profilePicture !== undefined) updateFields.profilePicture = req.body.profilePicture;
+      if (req.body.instagramHandle !== undefined) updateFields.instagramHandle = req.body.instagramHandle;
 
-        if (!existingUser) {
-            return res.status(404).json({ message: 'User not found' });
-        }
+      const data = await db.collection("users").updateOne(
+          { _id: new ObjectId(id) },
+          { $set: updateFields }
+      );
 
-        // Merge new data with existing data
-        const updatedUser = {
-            name: req.body.name !== undefined ? req.body.name : existingUser.name,
-            email: req.body.email !== undefined ? req.body.email : existingUser.email,
-            password: req.body.password !== undefined ? req.body.password : existingUser.password,
-            joinDate: req.body.joinDate !== undefined ? req.body.joinDate : existingUser.joinDate,
-            events: req.body.events !== undefined ? req.body.events : existingUser.events,
-            bio: req.body.bio !== undefined ? req.body.bio : existingUser.bio,
-            pictures: req.body.pictures !== undefined ? req.body.pictures : existingUser.pictures,
-            profilePicture: req.body.profilePicture !== undefined ? req.body.profilePicture : existingUser.profilePicture,
-        };
-
-        // Update the user document
-        let data = await db.collection("users").updateOne(
-            { _id: new ObjectId(id) },
-            { $set: updatedUser }
-        );
-
-        res.json({ message: 'User updated successfully', data });
-    } catch (error) {
-        next(error);
-    }
+      res.json(data);
+  } catch (error) {
+      next(error);
+  }
 });
 
 
