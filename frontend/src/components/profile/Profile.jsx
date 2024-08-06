@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../../api';
 import EditProfile from './EditProfile';
-import spurlogo from "../../assets/Spur_Logo.png";
+import spurlogo from "../../assets/Spur_Logo.png"; // Fallback image if no profile picture is available
 import './profile.css';
 
 function Profile() {
@@ -48,15 +48,12 @@ function Profile() {
         <>
           <div className="profile-picture-container">
             <img
-              src={user.profilePicture || spurlogo}
+              src={user.profilePicture ? `https://spur-profile-pictures.s3.amazonaws.com/${user.profilePicture}` : spurlogo}
               alt="Profile"
               className="profile-picture"
             />
           </div>
           <h1 className="username">{user.name}</h1>
-          <p className="user-info">
-            Male | 20 | Vancouver, British Columbia
-          </p>
           <p className="bio">{user.bio}</p>
           <button className="edit-profile-button" onClick={() => setIsEditing(true)}>
             Edit Profile

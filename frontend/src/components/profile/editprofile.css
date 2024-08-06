@@ -1,0 +1,38 @@
+.profile-picture-preview {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    margin-top: 10px; /* Add some space above the image */
+  }
+  
+  .form-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px; /* Add some space above the button */
+  }
+  
+  .save-button {
+    background-color: #3498db; /* Blue color */
+    color: #fff;
+  }
+  
+  .save-button:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+  }
+  
+  .cancel-button {
+    background-color: #f44336; /* Red color */
+    color: #fff;
+    margin-left: 10px; /* Space between buttons */
+  }
+  
+  .cancel-button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+  }
+  

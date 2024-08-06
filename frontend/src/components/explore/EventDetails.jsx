@@ -1,16 +1,16 @@
 // EventDetails.jsx
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getEvent, getUser } from '../../api'; // Import getUser API function
+import { getEvent, getUser } from '../../api';
 import { FaGraduationCap, FaRunning, FaSlideshare, FaUsers, FaRegBookmark, FaArrowLeft } from 'react-icons/fa';
 import muayThaiPic from '../../assets/muaythai-spur.png';
+import spurlogo from "../../assets/Spur_Logo.png"; // Fallback profile picture
 import './eventdetails.css';
 
 const EventDetails = () => {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
-  const [organizer, setOrganizer] = useState(null); // State to hold the organizer data
-
+  const [organizer, setOrganizer] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,7 +19,6 @@ const EventDetails = () => {
         const eventData = await getEvent(id);
         setEvent(eventData);
 
-        // Fetch the organizer's data using the createdBy field
         if (eventData.createdBy) {
           const organizerData = await getUser(eventData.createdBy);
           setOrganizer(organizerData);
@@ -50,12 +49,17 @@ const EventDetails = () => {
 
   return (
     <div className="event-details-container">
-      <button className='event-back-button' onClick={() => navigate(-1)}><FaArrowLeft/></button>
+      <button className="event-back-button" onClick={() => navigate(-1)}><FaArrowLeft /></button>
       <h1 className="event-details-title">{event.title}</h1>
       <p className="event-details-date-location">
         {new Date(event.startTime).toLocaleDateString()}, {new Date(event.startTime).toLocaleTimeString()} - {new Date(event.endTime).toLocaleTimeString()} | {event.location}
       </p>
       <div className="event-details-organizer-row">
+        <img
+          src={organizer?.profilePicture ? `https://spur-profile-pictures.s3.amazonaws.com/${organizer.profilePicture}` : spurlogo}
+          alt="Organizer"
+          className="organizer-profile-picture"
+        />
         <span className="event-details-organizer-name">
           {organizer ? organizer.name : 'Unknown Organizer'}
         </span>

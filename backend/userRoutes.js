@@ -87,24 +87,38 @@ userRoutes.route("/users/:id").put(async (req, res, next) => {
         }
 
         let db = database.getDb();
-        let mongoObject = {
-            $set: {
-                name: req.body.name,
-                email: req.body.email,
-                password: req.body.password,
-                joinDate: req.body.joinDate,
-                events: req.body.events,
-                bio: req.body.bio,
-                pictures: req.body.pictures,
-                profilePicture: req.body.profilePicture,
-            }
+
+        // Retrieve existing user data
+        const existingUser = await db.collection("users").findOne({ _id: new ObjectId(id) });
+
+        if (!existingUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Merge new data with existing data
+        const updatedUser = {
+            name: req.body.name !== undefined ? req.body.name : existingUser.name,
+            email: req.body.email !== undefined ? req.body.email : existingUser.email,
+            password: req.body.password !== undefined ? req.body.password : existingUser.password,
+            joinDate: req.body.joinDate !== undefined ? req.body.joinDate : existingUser.joinDate,
+            events: req.body.events !== undefined ? req.body.events : existingUser.events,
+            bio: req.body.bio !== undefined ? req.body.bio : existingUser.bio,
+            pictures: req.body.pictures !== undefined ? req.body.pictures : existingUser.pictures,
+            profilePicture: req.body.profilePicture !== undefined ? req.body.profilePicture : existingUser.profilePicture,
         };
-        let data = await db.collection("users").updateOne({ _id: new ObjectId(id) }, mongoObject);
-        res.json(data);
+
+        // Update the user document
+        let data = await db.collection("users").updateOne(
+            { _id: new ObjectId(id) },
+            { $set: updatedUser }
+        );
+
+        res.json({ message: 'User updated successfully', data });
     } catch (error) {
         next(error);
     }
 });
+
 
 // Delete one user
 userRoutes.route("/users/:id").delete(async (req, res, next) => {

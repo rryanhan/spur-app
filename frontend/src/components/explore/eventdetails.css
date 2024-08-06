@@ -1,101 +1,104 @@
-
-
 .event-details-container {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+}
 
-  }
-  
-  .event-details-title {
-    font-family: 'Jost', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-    text-align: left;
-  }
+.event-details-title {
+  font-family: 'Jost', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-align: left;
+}
 
-  .event-back-button {
-    background: none;
-    font-size: 15px;
-    border: none;
-    cursor: pointer;
-    padding: 0; /* Remove default padding */
-    margin-right: 300px;
-  }
-  
-  .event-details-date-location {
-    font-family: 'Jost', sans-serif;
-    font-size: 0.875rem;
-    color: #555;
-    margin-bottom: 10px;
-    text-align: left;
-  }
-  
-  .event-details-organizer-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    gap: 10px;
-  }
-  
-  .event-details-organizer-name {
-    font-family: 'Jost', sans-serif;
-    font-size: 1rem;
-    color: #23A3EB;
-  }
-  
-  .event-details-button {
-    background-color: #23A3EB;
-    color: white;
-    border: none;
-    border-radius: 100px;
-    padding: 10px 20px;
-    font-size: 0.8rem;
-    font-family: 'Jost', sans-serif;
-    cursor: pointer;
-  }
-  
-  .event-details-bookmark-icon {
-    color: #23A3EB;
-    cursor: pointer;
-  }
-  
-  .event-details-description {
-    font-family: 'Jost', sans-serif;
-    margin-bottom: 10px;
-    color: #555;
-    text-align: left;
-  }
-  
-  .event-details-tags {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-    font-family: 'Jost', sans-serif;
-  }
-  
-  .event-details-tag {
-    display: flex;
-    align-items: center;
-    padding: 2px 5px;
-    border-radius: 10px;
-    font-size: 0.55rem;
-    font-weight: 400;
-  }
-  
-  .event-details-tag svg {
-    margin-right: 5px;
-  }
-  
-  .event-details-images {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .event-details-image {
-    width: 100%;
-    border-radius: 10px;
-    max-width: 100px;
-  }
-  
+.event-back-button {
+  background: none;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-right: 300px;
+}
+
+.event-details-date-location {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.875rem;
+  color: #555;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.event-details-organizer-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.organizer-profile-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+}
+
+.event-details-organizer-name {
+  font-family: 'Jost', sans-serif;
+  font-size: 1rem;
+  color: #23A3EB;
+}
+
+.event-details-button {
+  background-color: #23A3EB;
+  color: white;
+  border: none;
+  border-radius: 100px;
+  padding: 10px 20px;
+  font-size: 0.8rem;
+  font-family: 'Jost', sans-serif;
+  cursor: pointer;
+}
+
+.event-details-bookmark-icon {
+  color: #23A3EB;
+  cursor: pointer;
+}
+
+.event-details-description {
+  font-family: 'Jost', sans-serif;
+  margin-bottom: 10px;
+  color: #555;
+  text-align: left;
+}
+
+.event-details-tags {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-family: 'Jost', sans-serif;
+}
+
+.event-details-tag {
+  display: flex;
+  align-items: center;
+  padding: 2px 5px;
+  border-radius: 10px;
+  font-size: 0.55rem;
+  font-weight: 400;
+}
+
+.event-details-tag svg {
+  margin-right: 5px;
+}
+
+.event-details-images {
+  display: flex;
+  gap: 10px;
+}
+
+.event-details-image {
+  width: 100%;
+  border-radius: 10px;
+  max-width: 100px;
+}

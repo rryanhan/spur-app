@@ -6,17 +6,22 @@ let eventRoutes = express.Router();
 // Retrieve all
 eventRoutes.route("/events").get(async (request, response, next) => {
     try {
+        console.log("Fetching events from the database...");
         let db = database.getDb();
-        let data = await db.collection("events").find({}).toArray(); // Corrected this line
+        let data = await db.collection("events").find({}).toArray();
         if (data.length > 0) {
+            console.log("Events found:", data);
             response.json(data);
         } else {
-            response.status(404).send("Data was not found");
+            console.log("No events found.");
+            response.json([]); // Return an empty array instead of sending a 404 error
         }
     } catch (error) {
+        console.error("Error fetching events:", error);
         next(error);
     }
 });
+
 
 // Retrieve one
 eventRoutes.route("/events/:id").get(async (request, response, next) => {
