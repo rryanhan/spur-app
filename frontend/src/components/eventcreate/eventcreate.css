@@ -74,6 +74,11 @@
     align-items: center;
     gap: 10px;
   }
+
+  .datetime-group input {
+    flex: 1; /* Make inputs take equal space */
+    min-width: 0; /* Prevent inputs from being too wide */
+  }
   
   .button-group {
     display: flex;

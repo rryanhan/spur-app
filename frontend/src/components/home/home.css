@@ -1,45 +1,80 @@
-.searchbar-content {
-    position: fixed;
-    bottom: 0;
-    left: 0; 
-  }
+.home-container {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+}
 
-/*FIX THIS LATER, a lazy way of having explore come from bottom up */
-.explore-overflow{
-    padding-top: 300px
+.map-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Background layer */
+}
+
+.searchbar-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2; /* Above map */
+  background: none;
 }
 
 .searchbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: white;
-    border-bottom: 1px solid #dcdcdc;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 10;
-    
-  }
-  
-  .search-bar {
-    flex-grow: 1;
-    margin-right: 10px;
-    padding: 10px;
-    border: 1px solid #dcdcdc;
-    border-radius: 10px;
-  }
-  
-  .create-event-button {
-    background: none;
-    border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: white;
+  border-bottom: 1px solid #dcdcdc;
+  z-index: 3;
+}
 
-  }
+.search-bar {
+  flex-grow: 1;
+  margin-right: 10px;
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+}
 
-  .create-event-button img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
+.create-event-button {
+  background: none;
+  border: none;
+}
+
+.create-event-button img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 100%;
+}
+
+.explore-modal {
+  max-width: 100%;
+  height: 80%; /* You can adjust the height */
+  overflow-y: auto;
+}
