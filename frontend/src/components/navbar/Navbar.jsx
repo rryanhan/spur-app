@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { MdOutlinePinDrop, MdCalendarMonth, MdPerson } from 'react-icons/md';
+import { MdOutlinePinDrop, MdChatBubble, MdCalendarMonth, MdPerson } from 'react-icons/md';
+import spurcreate from "../../assets/SpurCreate.png";
 import './navbar.css';
 
 const Navbar = () => {
@@ -18,6 +19,18 @@ const Navbar = () => {
         </i>
         <span className="nav-text">Upcoming</span>
       </NavLink>
+      {/* Spur button */}
+      <div className="spur-create-container">
+        <NavLink to="/create-event">
+          <img className='spur-create' src={spurcreate} alt="Create Event"/>
+        </NavLink>
+      </div>
+      <NavLink to="/social" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+        <i className="icon">
+          <MdChatBubble />
+        </i>
+        <span className="nav-text">Social</span>
+      </NavLink>
       <NavLink to="/profile" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
         <i className="icon">
           <MdPerson />
@@ -25,7 +38,7 @@ const Navbar = () => {
         <span className="nav-text">Profile</span>
       </NavLink>
     </div>
-  )
+  );
 }
 
 export default Navbar;

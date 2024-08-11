@@ -40,9 +40,6 @@ const Home = () => {
             placeholder="Find an Event!"
             onClick={toggleExplore}
           />
-          <button className="create-event-button" onClick={openCreateEvent}>
-            <img src={spurcreate} alt="Create Event" />
-          </button>
         </div>
       </div>
       <ExploreBottomSheet isOpen={isExploreOpen} toggleExplore={toggleExplore} />

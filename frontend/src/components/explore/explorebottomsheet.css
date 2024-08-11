@@ -2,7 +2,7 @@
 
 .bottom-sheet {
     position: fixed;
-    bottom: 94px; /* Adjust to leave space for the navbar */
+    bottom: 70px; /* Adjust to leave space for the navbar */
     left: 0;
     width: 100%;
     height: calc(45% - 60px); /* Adjust height accordingly */

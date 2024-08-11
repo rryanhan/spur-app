@@ -1,48 +1,34 @@
-.home-container {
-  position: relative;
-  width: 100%;
-  height: 100vh; /* Full viewport height */
-}
-
-.map-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1; /* Background layer */
-}
-
+/* Make search bar rounder and remove unnecessary background */
 .searchbar-content {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 2; /* Above map */
-  background: none;
+  background: none; /* Remove background */
+  padding: 10px 0; /* Add padding to the top and bottom */
 }
 
 .searchbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 10px;
-  background-color: white;
-  border-bottom: 1px solid #dcdcdc;
-  z-index: 3;
+  background-color: transparent; /* Set to transparent */
 }
 
 .search-bar {
   flex-grow: 1;
-  margin-right: 10px;
-  padding: 10px;
+  padding: 10px 15px;
   border: 1px solid #dcdcdc;
-  border-radius: 10px;
+  border-radius: 25px; /* Make the search bar rounder */
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); /* Add slight shadow */
 }
 
 .create-event-button {
   background: none;
   border: none;
+  margin-left: 10px;
 }
 
 .create-event-button img {
@@ -77,4 +63,58 @@
   max-width: 100%;
   height: 80%; /* You can adjust the height */
   overflow-y: auto;
+}
+
+/* Updated navbar styling */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+  box-sizing: border-box;
+  z-index: 5; /* Ensure navbar is on top */
+}
+
+.spur-create {
+  width: 60px; /* Increase the size for better visibility */
+  height: 60px;
+  border-radius: 50%;
+  margin-top: -25px; /* Make it pop out of the navbar */
+  background-color: #fff; /* Ensure it has a clean background */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
+}
+
+.nav-item {
+  text-align: center;
+  color: #CCCCCC;
+  text-decoration: none;
+  font-size: 10px;
+  font-family: "Jost", sans-serif;
+  font-weight: 400;
+  margin-bottom: 5px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 15px;
+}
+
+.icon {
+  font-size: 18px;
+  margin-bottom: -2px;
+}
+
+.nav-item:hover,
+.spur-create-container:hover {
+  color: #23A3EB;
+}
+
+.nav-item.active {
+  color: #23A3EB;
 }

@@ -7,6 +7,8 @@ import EventDetails from './components/explore/EventDetails';
 import Home from './components/home/Home';
 import EventCreate from './components/eventcreate/EventCreate'; 
 import Authentication from './components/authentication/Authentication'
+import Social from './components/social/Social'
+
 
 function App() {
   return (
@@ -20,7 +22,10 @@ function App() {
             <Route path="/upcoming" element={<Upcoming />} />
             <Route path="/create-event" element={<EventCreate />} />
             <Route path="/authentication" element={<Authentication />} />
+            <Route path="/social" element={<Social />} />
+            <Route path="/create-event" element={<EventCreate />} />
             <Route path="*" element={<Navigate to="/" />} /> {/* Redirect to home for undefined routes */}
+
           </Routes>
         </div>
         <div className="nav-bottom">
