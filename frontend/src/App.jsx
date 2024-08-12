@@ -1,5 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import Navbar from './components/navbar/Navbar';
 import Profile from './components/profile/Profile';
 import Upcoming from './components/upcoming/Upcoming';
@@ -9,10 +10,12 @@ import EventCreate from './components/eventcreate/EventCreate';
 import Authentication from './components/authentication/Authentication'
 import Social from './components/social/Social'
 
+const libraries = ['places'];
 
 function App() {
   return (
     <Router>
+      <LoadScript googleMapsApiKey="AIzaSyATBPcpHme8cT4m_0HHu67qynPj7jhOVAU" libraries={libraries}>
       <div className="app">
         <div className="content">
           <Routes>
@@ -32,6 +35,7 @@ function App() {
           <Navbar />
         </div>
       </div>
+      </LoadScript>
     </Router>
   );
 }

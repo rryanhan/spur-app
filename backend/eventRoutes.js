@@ -3,7 +3,7 @@ const database = require("./connect");
 const { ObjectId } = require("mongodb");
 let eventRoutes = express.Router();
 
-// Retrieve all
+// Retrieve all events
 eventRoutes.route("/events").get(async (request, response, next) => {
     try {
         console.log("Fetching events from the database...");
@@ -22,8 +22,7 @@ eventRoutes.route("/events").get(async (request, response, next) => {
     }
 });
 
-
-// Retrieve one
+// Retrieve one event by ID
 eventRoutes.route("/events/:id").get(async (request, response, next) => {
     try {
         let db = database.getDb();
@@ -38,7 +37,7 @@ eventRoutes.route("/events/:id").get(async (request, response, next) => {
     }
 });
 
-// Create one
+// Create a new event
 eventRoutes.route("/events").post(async (request, response, next) => {
     try {
         let db = database.getDb();
@@ -48,7 +47,11 @@ eventRoutes.route("/events").post(async (request, response, next) => {
             endTime: request.body.endTime,
             startTime: request.body.startTime,
             type: request.body.type,
-            location: request.body.location,
+            location: {
+                address: request.body.location.address,
+                coordinates: request.body.location.coordinates,
+            },
+            placeName: request.body.placeName, // Save the place name
             attendees: 0,
             frequency: request.body.frequency,
             createdBy: request.body.createdBy, // Include the creator's ID
@@ -60,8 +63,7 @@ eventRoutes.route("/events").post(async (request, response, next) => {
     }
 });
 
-
-// Update one
+// Update an existing event
 eventRoutes.route("/events/:id").put(async (request, response, next) => {
     try {
         let db = database.getDb();
@@ -72,19 +74,23 @@ eventRoutes.route("/events/:id").put(async (request, response, next) => {
                 endTime: request.body.endTime,
                 startTime: request.body.startTime,
                 type: request.body.type,
-                location: request.body.location,
+                location: {
+                    address: request.body.location.address,
+                    coordinates: request.body.location.coordinates,
+                },
+                placeName: request.body.placeName,
                 attendees: request.body.attendees,
                 frequency: request.body.frequency
             }
         };
-        let data = await db.collection("events").updateOne({ _id: new ObjectId(request.params.id) }, mongoObject); // Corrected this line
+        let data = await db.collection("events").updateOne({ _id: new ObjectId(request.params.id) }, mongoObject);
         response.json(data);
     } catch (error) {
         next(error);
     }
 });
 
-// Delete one
+// Delete an event by ID
 eventRoutes.route("/events/:id").delete(async (request, response, next) => {
     try {
         let db = database.getDb();

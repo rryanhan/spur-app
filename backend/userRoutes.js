@@ -1,12 +1,93 @@
 const express = require("express");
+const multer = require("multer");
+const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 const database = require("./connect");
 const { ObjectId } = require("mongodb");
 const bcrypt = require("bcrypt");
 const SALT_ROUNDS = 6;
-const jwt = require("jsonwebtoken")
-require("dotenv").config({path: "./config.env"})
+const jwt = require("jsonwebtoken");
+require("dotenv").config({path: "./config.env"});
 
 let userRoutes = express.Router();
+
+const s3Bucket = "spur-profile-pictures";
+const s3Client = new S3Client({
+  region: "us-east-1",
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_KEY
+  }
+});
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 } // Set a file size limit (5MB)
+});
+
+// Add photo to user's photos array
+userRoutes.route('/users/:id/photos').post(upload.single('photo'), async (req, res, next) => {
+  const userId = req.params.id;
+  if (!ObjectId.isValid(userId)) {
+    return res.status(400).json({ message: 'Invalid ID format' });
+  }
+
+  const file = req.file;
+  const bucketParams = {
+    Bucket: s3Bucket,
+    Key: `${Date.now()}_${file.originalname}`,
+    Body: file.buffer,
+    ContentType: file.mimetype,
+  };
+
+  try {
+    const data = await s3Client.send(new PutObjectCommand(bucketParams));
+    const photoUrl = bucketParams.Key;
+
+    const db = database.getDb();
+    const updateResult = await db.collection("users").updateOne(
+      { _id: new ObjectId(userId) },
+      { $push: { photos: photoUrl } }
+    );
+
+    if (updateResult.modifiedCount > 0) {
+      res.json({ message: 'Photo added successfully', photoUrl });
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    console.error('Error uploading photo:', error);
+    res.status(500).json({ message: 'Error uploading photo', error: error.message });
+  }
+});
+
+// Delete a photo from user's photos array
+userRoutes.route('/users/:id/photos/:photoKey').delete(async (req, res, next) => {
+  const userId = req.params.id;
+  const photoKey = req.params.photoKey;
+
+  if (!ObjectId.isValid(userId)) {
+    return res.status(400).json({ message: 'Invalid ID format' });
+  }
+
+  try {
+    const db = database.getDb();
+    const updateResult = await db.collection("users").updateOne(
+      { _id: new ObjectId(userId) },
+      { $pull: { photos: photoKey } }
+    );
+
+    if (updateResult.modifiedCount > 0) {
+      res.json({ message: 'Photo deleted successfully' });
+    } else {
+      res.status(404).json({ message: 'User or photo not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting photo:', error);
+    res.status(500).json({ message: 'Error deleting photo', error: error.message });
+  }
+});
+
+// Existing routes...
 
 // Retrieve all users
 userRoutes.route("/users").get(async (req, res, next) => {
@@ -62,7 +143,7 @@ userRoutes.route("/users").post(async (req, res, next) => {
           joinDate: new Date(),
           events: [],
           bio: [],
-          pictures: [],
+          photos: [], // Added field for storing photo URLs
           profilePicture: [],
         };
         let data = await db.collection("users").insertOne(mongoObject);
@@ -76,7 +157,6 @@ userRoutes.route("/users").post(async (req, res, next) => {
       next(error);
     }
   });
-  
 
 // Update one user
 userRoutes.route("/users/:id").put(async (req, res, next) => {
@@ -93,6 +173,7 @@ userRoutes.route("/users/:id").put(async (req, res, next) => {
       if (req.body.bio !== undefined) updateFields.bio = req.body.bio;
       if (req.body.profilePicture !== undefined) updateFields.profilePicture = req.body.profilePicture;
       if (req.body.instagramHandle !== undefined) updateFields.instagramHandle = req.body.instagramHandle;
+      if (req.body.photos !== undefined) updateFields.photos = req.body.photos;
 
       const data = await db.collection("users").updateOne(
           { _id: new ObjectId(id) },
@@ -104,7 +185,6 @@ userRoutes.route("/users/:id").put(async (req, res, next) => {
       next(error);
   }
 });
-
 
 // Delete one user
 userRoutes.route("/users/:id").delete(async (req, res, next) => {

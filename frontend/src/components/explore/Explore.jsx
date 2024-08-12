@@ -1,4 +1,3 @@
-// Explore.jsx
 import React, { useState, useEffect } from 'react';
 import { getEvents } from '../../api';
 import { Link } from 'react-router-dom'; // Import Link from React Router
@@ -42,12 +41,12 @@ const Explore = () => {
 
   return (
     <div className="explore-container">
-      <h2 className = "explore-for-you">Explore, For You!</h2>
+      <h2 className="explore-for-you">Explore, For You!</h2>
       <div className="events-list">
         {events.map(event => {
           const tagDetails = getTagDetails(event.type);
           return (
-            <Link to={`/event/${event._id}`} className="event-item-link">
+            <Link to={`/event/${event._id}`} className="event-item-link" key={event._id}>
               <div className="event-item">
                 <div className="event-left">
                   <img className="event-pic" src={muayThaiPic} alt="Event" />
@@ -68,7 +67,8 @@ const Explore = () => {
                   </div>
                   <p className="event-time">{formatEventTime(event.startTime, event.endTime)}</p>
                   <p className="event-description">{event.description}</p>
-                  <p className="event-location"><strong>Location:</strong> {event.location}</p>
+                  {/* Display the place name instead of the address */}
+                  <p className="event-location"><strong>Location:</strong> {event.placeName}</p>
                 </div>
               </div>
             </Link>

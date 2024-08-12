@@ -1,4 +1,3 @@
-// EventDetails.jsx
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getEvent, getUser } from '../../api';
@@ -52,7 +51,7 @@ const EventDetails = () => {
       <button className="event-back-button" onClick={() => navigate(-1)}><FaArrowLeft /></button>
       <h1 className="event-details-title">{event.title}</h1>
       <p className="event-details-date-location">
-        {new Date(event.startTime).toLocaleDateString()}, {new Date(event.startTime).toLocaleTimeString()} - {new Date(event.endTime).toLocaleTimeString()} | {event.location}
+        {new Date(event.startTime).toLocaleDateString()}, {new Date(event.startTime).toLocaleTimeString()} - {new Date(event.endTime).toLocaleTimeString()} | {event.placeName || 'Location not available'}
       </p>
       <div className="event-details-organizer-row">
         <img

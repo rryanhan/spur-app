@@ -1,6 +1,6 @@
 const express = require('express');
 const multer = require('multer');
-const { S3Client, PutObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3');
+const { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require('@aws-sdk/client-s3');
 require('dotenv').config();
 
 const awsRoutes = express.Router();
@@ -28,20 +28,19 @@ awsRoutes.route('/profile-picture').post(upload.single('image'), async (req, res
   const file = req.file;
   const bucketParams = {
     Bucket: s3Bucket,
-    Key: `${Date.now()}_${file.originalname}`, // Unique key
+    Key: `profile-pictures/${Date.now()}_${file.originalname}`, // Unique key
     Body: file.buffer,
     ContentType: file.mimetype,
   };
 
   try {
     const data = await s3Client.send(new PutObjectCommand(bucketParams));
-    res.json({ message: 'Image uploaded successfully', key: bucketParams.Key });
+    res.json({ message: 'Profile picture uploaded successfully', key: bucketParams.Key });
   } catch (error) {
-    console.error('Error uploading image:', error); // Add detailed logging here
-    res.status(500).json({ message: 'Error uploading image', error: error.message });
+    console.error('Error uploading profile picture:', error);
+    res.status(500).json({ message: 'Error uploading profile picture', error: error.message });
   }
 });
-
 
 // Retrieve a profile picture
 awsRoutes.route('/profile-picture/:key').get(async (req, res) => {
@@ -64,8 +63,49 @@ awsRoutes.route('/profile-picture/:key').get(async (req, res) => {
       res.end(buffer);
     });
   } catch (error) {
-    console.error('Error retrieving image:', error);
-    res.status(500).json({ message: 'Error retrieving image' });
+    console.error('Error retrieving profile picture:', error);
+    res.status(500).json({ message: 'Error retrieving profile picture' });
+  }
+});
+
+// Upload a photo to user profile
+awsRoutes.route('/users/:id/photos').post(upload.single('photo'), async (req, res, next) => {
+  if (!req.file) {
+    return res.status(400).json({ message: 'No file uploaded' });
+  }
+
+  const userId = req.params.id;
+  const file = req.file;
+  const bucketParams = {
+    Bucket: s3Bucket,
+    Key: `user-photos/${userId}/${Date.now()}_${file.originalname}`, // Unique key for user photo
+    Body: file.buffer,
+    ContentType: file.mimetype,
+  };
+
+  try {
+    const data = await s3Client.send(new PutObjectCommand(bucketParams));
+    res.json({ message: 'Photo uploaded successfully', key: bucketParams.Key });
+  } catch (error) {
+    console.error('Error uploading photo:', error);
+    res.status(500).json({ message: 'Error uploading photo', error: error.message });
+  }
+});
+
+// Delete a photo from user profile
+awsRoutes.route('/users/:id/photos/:photoKey').delete(async (req, res, next) => {
+  const photoKey = req.params.photoKey;
+  const bucketParams = {
+    Bucket: s3Bucket,
+    Key: `user-photos/${req.params.id}/${photoKey}`,
+  };
+
+  try {
+    const data = await s3Client.send(new DeleteObjectCommand(bucketParams));
+    res.json({ message: 'Photo deleted successfully', data });
+  } catch (error) {
+    console.error('Error deleting photo:', error);
+    res.status(500).json({ message: 'Error deleting photo', error: error.message });
   }
 });
 
