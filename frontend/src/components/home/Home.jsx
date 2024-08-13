@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import ExploreBottomSheet from "../explore/ExploreBottomSheet"; // Adjust path if needed
 import EventCreate from "../eventcreate/EventCreate";
 import MapComponent from '../map/Map'; // Ensure this path is correct
+import EventDetails from '../explore/EventDetails'; // Ensure this path is correct
 import spurcreate from "../../assets/SpurCreate.png";
 import './home.css';
 
 const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isExploreOpen, setIsExploreOpen] = useState(false);
-  const navigate = useNavigate();
+  const { id } = useParams(); // Get the event ID from the URL if it's present
 
   const openCreateEvent = () => {
     const token = sessionStorage.getItem('user');
@@ -42,7 +43,13 @@ const Home = () => {
           />
         </div>
       </div>
-      <ExploreBottomSheet isOpen={isExploreOpen} toggleExplore={toggleExplore} />
+      {id ? (
+        <div className="bottom-sheet">
+          <EventDetails eventId={id} />
+        </div>
+      ) : (
+        <ExploreBottomSheet isOpen={isExploreOpen} toggleExplore={toggleExplore} />
+      )}
       {isModalOpen && (
         <div className="modal">
           <div className="modal-content">

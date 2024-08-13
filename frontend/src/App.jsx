@@ -1,14 +1,13 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { LoadScript } from '@react-google-maps/api';
 import Navbar from './components/navbar/Navbar';
 import Profile from './components/profile/Profile';
 import Upcoming from './components/upcoming/Upcoming';
-import EventDetails from './components/explore/EventDetails';
-import Home from './components/home/Home';
 import EventCreate from './components/eventcreate/EventCreate'; 
-import Authentication from './components/authentication/Authentication'
-import Social from './components/social/Social'
+import Authentication from './components/authentication/Authentication';
+import Social from './components/social/Social';
+import Home from './components/home/Home'; // Ensure Home is properly imported
 
 const libraries = ['places'];
 
@@ -16,25 +15,23 @@ function App() {
   return (
     <Router>
       <LoadScript googleMapsApiKey="AIzaSyATBPcpHme8cT4m_0HHu67qynPj7jhOVAU" libraries={libraries}>
-      <div className="app">
-        <div className="content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/event/:id" element={<EventDetails />} />
-            <Route path="/profile" element={<ProtectedRoute element={<Profile />} />} />
-            <Route path="/upcoming" element={<Upcoming />} />
-            <Route path="/create-event" element={<EventCreate />} />
-            <Route path="/authentication" element={<Authentication />} />
-            <Route path="/social" element={<Social />} />
-            <Route path="/create-event" element={<EventCreate />} />
-            <Route path="*" element={<Navigate to="/" />} /> {/* Redirect to home for undefined routes */}
-
-          </Routes>
+        <div className="app">
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/event/:id" element={<Home />} /> {/* Render Home on event details route */}
+              <Route path="/profile" element={<ProtectedRoute element={<Profile />} />} />
+              <Route path="/upcoming" element={<Upcoming />} />
+              <Route path="/create-event" element={<EventCreate />} />
+              <Route path="/authentication" element={<Authentication />} />
+              <Route path="/social" element={<Social />} />
+              <Route path="*" element={<Navigate to="/" />} /> {/* Redirect to home for undefined routes */}
+            </Routes>
+          </div>
+          <div className="nav-bottom">
+            <Navbar />
+          </div>
         </div>
-        <div className="nav-bottom">
-          <Navbar />
-        </div>
-      </div>
       </LoadScript>
     </Router>
   );

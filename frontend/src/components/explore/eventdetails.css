@@ -1,15 +1,12 @@
 .event-details-container {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
+  padding-left: 20px;
+  max-width: 500px;
 }
 
-.event-details-title {
-  font-family: 'Jost', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-  text-align: left;
+.event-details-header {
+  display: flex;
+  align-items: center;
+
 }
 
 .event-back-button {
@@ -18,21 +15,28 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  margin-right: 300px;
+  margin-right: 20px;
+}
+
+.event-details-title {
+  font-family: 'Jost', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: left;
+  flex-grow: 1; /* Allows the title to take up remaining space */
 }
 
 .event-details-date-location {
   font-family: 'Jost', sans-serif;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: #555;
-  margin-bottom: 10px;
   text-align: left;
+  margin-top: -8px;
 }
 
 .event-details-organizer-row {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
   gap: 10px;
 }
 
@@ -40,13 +44,13 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-
 }
 
 .event-details-organizer-name {
   font-family: 'Jost', sans-serif;
   font-size: 1rem;
   color: #23A3EB;
+  margin-right: 20px;
 }
 
 .event-details-button {

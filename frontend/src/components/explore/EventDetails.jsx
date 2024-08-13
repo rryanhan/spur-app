@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getEvent, getUser } from '../../api';
 import { FaGraduationCap, FaRunning, FaSlideshare, FaUsers, FaRegBookmark, FaArrowLeft } from 'react-icons/fa';
 import muayThaiPic from '../../assets/muaythai-spur.png';
-import spurlogo from "../../assets/Spur_Logo.png"; // Fallback profile picture
+import spurlogo from "../../assets/Spur_Logo.png";
 import './eventdetails.css';
 
 const EventDetails = () => {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
   const [organizer, setOrganizer] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchEventDetails() {
@@ -46,12 +45,25 @@ const EventDetails = () => {
 
   const tagDetails = getTagDetails(event.type);
 
+  // Format date as "August 12th, 2024"
+  const formatDate = (date) => {
+    const options = { month: 'long', day: 'numeric', year: 'numeric' };
+    return new Date(date).toLocaleDateString('en-US', options);
+  };
+
+  // Format time without seconds
+  const formatTime = (time) => {
+    return new Date(time).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
+  };
+
   return (
     <div className="event-details-container">
-      <button className="event-back-button" onClick={() => navigate(-1)}><FaArrowLeft /></button>
-      <h1 className="event-details-title">{event.title}</h1>
+      <div className="event-details-header">
+        <button className="event-back-button" onClick={() => window.history.back()}><FaArrowLeft /></button>
+        <h1 className="event-details-title">{event.title}</h1>
+      </div>
       <p className="event-details-date-location">
-        {new Date(event.startTime).toLocaleDateString()}, {new Date(event.startTime).toLocaleTimeString()} - {new Date(event.endTime).toLocaleTimeString()} | {event.placeName || 'Location not available'}
+        {formatDate(event.startTime)}, {formatTime(event.startTime)} - {formatTime(event.endTime)} | {event.placeName || 'Location not available'}
       </p>
       <div className="event-details-organizer-row">
         <img

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate to handle navigation
 import { getEvents } from '../../api';
-import { Link } from 'react-router-dom'; // Import Link from React Router
 import './explore.css';
 import muayThaiPic from '../../assets/muaythai-spur.png';
 import { FaGraduationCap, FaRunning, FaSlideshare, FaUsers } from 'react-icons/fa';
 
 const Explore = () => {
   const [events, setEvents] = useState([]);
+  const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
     async function loadAllEvents() {
@@ -46,7 +47,7 @@ const Explore = () => {
         {events.map(event => {
           const tagDetails = getTagDetails(event.type);
           return (
-            <Link to={`/event/${event._id}`} className="event-item-link" key={event._id}>
+            <div key={event._id} className="event-item-link" onClick={() => navigate(`/event/${event._id}`)}>
               <div className="event-item">
                 <div className="event-left">
                   <img className="event-pic" src={muayThaiPic} alt="Event" />
@@ -67,11 +68,10 @@ const Explore = () => {
                   </div>
                   <p className="event-time">{formatEventTime(event.startTime, event.endTime)}</p>
                   <p className="event-description">{event.description}</p>
-                  {/* Display the place name instead of the address */}
                   <p className="event-location"><strong>Location:</strong> {event.placeName}</p>
                 </div>
               </div>
-            </Link>
+            </div>
           );
         })}
       </div>
