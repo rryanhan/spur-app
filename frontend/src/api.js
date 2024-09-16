@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "http://localhost:3500";
+const URL = "https://spur-app.onrender.com";
 
 // Event-related API functions
 export async function getEvents() {
