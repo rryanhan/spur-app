@@ -24,6 +24,7 @@ const Signup = ({ setActive }) => {
     setPasswordVisible(!passwordVisible);
   };
 
+  
   const handleSignup = async (e) => {
     e.preventDefault();
     try {

@@ -4,7 +4,7 @@ import Events from "../../components/explore/ExploreBottomSheet"
 
 const Upcoming = () => {
   return (
-    <div><Events/></div>
+    <div>Events</div>
   )
 }
 
